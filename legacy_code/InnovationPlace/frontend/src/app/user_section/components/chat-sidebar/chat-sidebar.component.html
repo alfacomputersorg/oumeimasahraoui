@@ -1,0 +1,73 @@
+<div class="chat-sidebar open" [ngClass]="{open: open}">
+  <div class="sidebar-trigger" (click)="open = !open">
+    <i class="glyphicon glyphicon-menu-hamburger"></i>
+  </div>
+  <div class="top-section">
+    <div class="chat-item is-connected">
+    <span class="media">
+      <span class="media-left">
+        <a [routerLink]="['/users', currentUser._id]">
+          <img [src]="currentUser.gravatarUrl" alt="" class="media-object">
+          <span class="bubble bubble-success"></span>
+        </a>
+      </span>
+      <span class="media-body">
+        <h5 class="media-heading">
+          {{currentUser.fullName}} -
+          <small class="label label-default" *ngIf="currentUser.role == 'user'">{{currentUser.role}}</small>
+          <small class="label label-danger" *ngIf="currentUser.role == 'admin'">{{currentUser.role}}</small>
+          <small class="label label-primary" *ngIf="currentUser.role == 'author'">{{currentUser.role}}</small>
+        </h5>
+          <p>
+            <a class="visit-user" [routerLink]="['/users', currentUser._id]">
+              <i class="glyphicon glyphicon-list-alt mr-5"></i> {{currentUser.postsCount}} posts
+            </a>
+          </p>
+      </span>
+    </span>
+    </div>
+  </div>
+  <h5 class="section-header">
+    <i class="glyphicon glyphicon-user mr-5"></i>
+    Our users
+    <span class="label" [ngClass]="{
+      'label-success': (connectedUsersIds.length - 1) > 0,
+      'label-default': (connectedUsersIds.length - 1) < 1
+     }">
+      {{connectedUsersIds.length -1 }} online
+    </span>
+  </h5>
+  <div class="search-form-wrapper">
+    <input type="text" class="form-control" placeholder="Search users ..."
+           [(ngModel)]="searchKeyword"
+           (ngModelChange)="filterUsers()"
+    >
+  </div>
+  <ul class="list-unstyled chat-list">
+    <li *ngFor="let conversation of preparedConversations" class="chat-item" [ngClass]="{'chat-item': true, 'is-connected': isConnected(remoteConverserForConversation(conversation)._id)}">
+      <span class="media">
+        <span class="media-left" (click)="openConversation(conversation._id)">
+          <img [src]="remoteConverserForConversation(conversation).gravatarUrl" alt="" class="media-object">
+          <span class="bubble bubble-success"></span>
+          <span class="bubble bubble-default"></span>
+        </span>
+        <span class="media-body">
+          <h5 class="media-heading" (click)="openConversation(conversation._id)">
+            <div class="badge badge-danger" *ngIf="conversation.unviewedMessagesCount">{{conversation.unviewedMessagesCount}}</div>
+            {{remoteConverserForConversation(conversation).fullName}} -
+            <small class="text-default" *ngIf="remoteConverserForConversation(conversation).role == 'user'">{{remoteConverserForConversation(conversation).role}}</small>
+            <small class="text-danger" *ngIf="remoteConverserForConversation(conversation).role == 'admin'">{{remoteConverserForConversation(conversation).role}}</small>
+            <small class="text-primary" *ngIf="remoteConverserForConversation(conversation).role == 'author'">{{remoteConverserForConversation(conversation).role}}</small>
+          </h5>
+          <p *ngIf="conversation.lastMessageText">{{conversation.lastMessageText}}</p>
+          <p>
+            <a class="visit-user" [routerLink]="['/users', remoteConverserForConversation(conversation)._id]">
+              <i class="glyphicon glyphicon-eye-open mr-5"></i>
+            </a>
+            <a href="#" class="user-chat" (click)="openConversation(conversation._id, $event)"> <i class="glyphicon glyphicon-envelope"></i> </a>
+          </p>
+        </span>
+      </span>
+    </li>
+  </ul>
+</div>

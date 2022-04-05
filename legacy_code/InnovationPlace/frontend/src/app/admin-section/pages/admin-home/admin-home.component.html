@@ -1,0 +1,111 @@
+<div class="container" *ngIf="stats">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Users
+            <div class="label label-primary">{{stats.allUsersCount}}</div>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <canvas
+              baseChart
+              [data]="[stats.regularUsersCount, stats.authorsCount, stats.adminsCount]"
+              [labels]="['users', 'authors', 'admins']"
+              [chartType]="'pie'"
+          ></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Posts
+            <div class="label label-primary">{{stats.allPostsCount}}</div>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <canvas
+              baseChart
+              [data]="[stats.pendingPostsCount, stats.verifiedPostsCount]"
+              [labels]="['Pending', 'Verified']"
+              [chartType]="'pie'"
+          ></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Comments / Ratings
+          </h3>
+        </div>
+        <div class="panel-body">
+          <canvas
+              baseChart
+              [data]="[stats.commentsCount, stats.ratingsCount]"
+              [labels]="['Comments', 'Ratings']"
+              [chartType]="'pie'"
+          ></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Posts by minute
+          </h3>
+        </div>
+        <div class="panel-body">
+          <canvas baseChart
+                  [datasets]="postsByMinuteData"
+                  [labels]="postsByMinuteLabels"
+                  [chartType]="'line'"
+          ></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Posts by hour
+          </h3>
+        </div>
+        <div class="panel-body">
+          <canvas baseChart
+                  [datasets]="postsByHourData"
+                  [labels]="postsByHourLabels"
+                  [chartType]="'line'"
+          ></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Posts by Day
+          </h3>
+        </div>
+        <div class="panel-body">
+          <canvas baseChart
+                  [datasets]="postsByDayData"
+                  [labels]="postsByDayLabels"
+                  [chartType]="'line'"
+          ></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

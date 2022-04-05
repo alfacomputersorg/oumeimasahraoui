@@ -1,0 +1,65 @@
+<h4 class="section-header">Basic informations</h4>
+<form [formGroup]="userForm" (ngSubmit)="handleSubmit()">
+  <alert type="warning" *ngIf="serverFormErrors.length" dismissible="true">
+    Please correct these errors
+    <ul class="list-unstyled">
+      <li *ngFor="let error of serverFormErrors">
+        <strong> {{error.param}}: </strong> {{error.msg}}
+      </li>
+    </ul>
+  </alert>
+  <div class="form-group">
+    <div class="row">
+      <label for="fullName" class="control-label col-xs-3 text-right">Full Name</label>
+      <div class="col-xs-9">
+        <input formControlName="fullName" id ="fullName" type="text" class="form-control" placeholder="John Doe">
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="row">
+      <label for="email" class="control-label col-xs-3 text-right">Email</label>
+      <div class="col-xs-9">
+        <input formControlName="email" id ="email" type="email" class="form-control" placeholder="ex: test@email.com">
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="row">
+      <label for="phoneNumber" class="control-label col-xs-3 text-right">Phone Number</label>
+      <div class="col-xs-9">
+        <input formControlName="phoneNumber" id ="phoneNumber" type="text" class="form-control" placeholder="ex: 00 777 888">
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="row">
+      <label for="twitterUrl" class="control-label col-xs-3 text-right">Twitter url</label>
+      <div class="col-xs-9">
+        <input formControlName="twitterUrl" id ="twitterUrl" type="text" class="form-control">
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="row">
+      <label for="facebookUrl" class="control-label col-xs-3 text-right">Facebook url</label>
+      <div class="col-xs-9">
+        <input formControlName="facebookUrl" id ="facebookUrl" type="text" class="form-control">
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="row">
+      <label for="linkedinUrl" class="control-label col-xs-3 text-right">Linkedin Url</label>
+      <div class="col-xs-9">
+        <input formControlName="linkedinUrl" id ="linkedinUrl" type="text" class="form-control">
+      </div>
+    </div>
+  </div>
+  <div class="text-right">
+    <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">
+      Save
+    </button>
+  </div>
+</form>
+

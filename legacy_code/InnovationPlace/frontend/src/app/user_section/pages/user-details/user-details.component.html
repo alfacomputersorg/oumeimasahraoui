@@ -1,0 +1,31 @@
+<div class="row" *ngIf="user">
+  <div class="col-md-4">
+    <app-user-card [user]="user"></app-user-card>
+    <app-user-informations [user]="user"></app-user-informations>
+  </div>
+  <div class="col-md-8">
+    <app-should-login-panel></app-should-login-panel>
+    <div *ngIf="posts.length">
+      <h6 class="text-muted mt-0" *ngIf="posts.length">Displaying {{posts.length}} posts / {{paginationMeta.count}}</h6>
+      <app-post *ngFor="let post of posts" [post]="post" [full]=false></app-post>
+      <div class="text-center">
+        <pagination [boundaryLinks]="true"
+                    [itemsPerPage]="3"
+                    [totalItems]="paginationMeta.count"
+                    [(ngModel)]="currentPage"
+                    class="pagination-sm"
+                    previousText="&lsaquo;"
+                    nextText="&rsaquo;"
+                    firstText="&laquo;"
+                    lastText="&raquo;"
+                    (pageChanged)="pageChanged($event)"
+                    class="pagination-sm"
+        ></pagination>
+      </div>
+    </div>
+    <div *ngIf="!posts.length">
+      <app-empty-page></app-empty-page>
+    </div>
+  </div>
+</div>
+

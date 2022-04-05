@@ -1,0 +1,16 @@
+<div *ngIf="!currentUser" class="should-login-panel">
+  <hr>
+  <p style="opacity: .7; font-size: .9em">
+    <i class="glyphicon glyphicon-info-sign mr-5"></i>
+    You should connect so you could create or comment on posts
+  </p>
+  <a routerLink="/signup" class="btn btn-sm btn-primary mr-5">
+    <i class="glyphicon glyphicon-plus mr-5"></i>
+    Signup
+  </a>
+  <a routerLink="/login" class="btn btn-sm btn-info">
+    <i class="glyphicon glyphicon-lock mr-5"></i>
+    Login
+  </a>
+</div>
+

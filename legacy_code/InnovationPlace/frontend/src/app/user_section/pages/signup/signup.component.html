@@ -1,0 +1,90 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="row">
+      <div class="col-md-5">
+        <div class="signup-sections-wrapper">
+          <section>
+            <h5 class="section-header">
+              <i class="glyphicon glyphicon-pencil mr-5 text-primary"></i>
+              Share your ideas
+            </h5>
+            <p class="section-content">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            </p>
+          </section>
+          <section>
+            <h5 class="section-header">
+              <i class="glyphicon glyphicon-search mr-5 text-success"></i>
+              Search and find new ideas
+            </h5>
+            <p class="section-content">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              Deleniti dolore ducimus, eaque esse ex fuga hic iure, minima modi nemo.
+              Nulla perferendis quae quaerat quam quasi quibusdam, ullam veritatis voluptas!
+            </p>
+          </section>
+          <section>
+            <h5 class="section-header">
+              <i class="glyphicon glyphicon-pencil mr-5 text-info"></i>
+              Find and connect with new people
+            </h5>
+            <p class="section-content">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              Nulla perferendis quae quaerat quam quasi quibusdam, ullam veritatis voluptas!
+            </p>
+          </section>
+        </div>
+      </div>
+      <div class="col-md-7">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <h4 class="title-icon"> <i class="glyphicon glyphicon-plus"></i> </h4>
+            <h4 class="title">Signup page</h4>
+            <h5 class="subtitle">Please fill in the form to create a new account</h5>
+          </div>
+          <form [formGroup]="signupForm" (ngSubmit)="handleSubmit()">
+            <div class="panel-body">
+              <alert type="warning" *ngIf="serverFormErrors.length" dismissible="true">
+                Please correct these errors
+                <ul class="list-unstyled">
+                  <li *ngFor="let error of serverFormErrors">
+                    <strong> {{error.param}}: </strong> {{error.msg}}
+                  </li>
+                </ul>
+              </alert>
+              <div class="form-group">
+                <label for="fullName" class="control-label">Full name</label>
+                <input formControlName="fullName" id ="fullName" type="text" class="form-control" placeholder="ex: John Doe">
+              </div>
+              <div class="form-group">
+                <label for="email" class="control-label">Email</label>
+                <input formControlName="email" id ="email" type="email" class="form-control" placeholder="ex: test@email.com">
+              </div>
+              <div class="form-group">
+                <label for="password" class="control-label">Password</label>
+                <input id ="password" formControlName="password" type="password" class="form-control" placeholder="******">
+              </div>
+              <div class="form-group">
+                <label for="passwordConfirmation" class="control-label">Password Confirmation</label>
+                <input id ="passwordConfirmation" formControlName="passwordConfirmation" type="password" class="form-control" placeholder="******">
+              </div>
+            </div>
+            <div class="panel-footer">
+              <div class="row">
+                <div class="col-xs-6">
+                  <button type="submit" class="btn btn-primary" [disabled]="signupForm.invalid">
+                    Signup
+                  </button>
+                </div>
+                <div class="col-xs-6 text-right">
+                  <a routerLink="/login" class="btn btn-link">Login</a>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

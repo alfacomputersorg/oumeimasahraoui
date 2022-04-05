@@ -1,0 +1,6 @@
+<app-navbar></app-navbar>
+<app-chat-sidebar *ngIf="authService.isAuthenticated()"></app-chat-sidebar>
+<app-chat-box *ngIf="authService.isAuthenticated()"></app-chat-box>
+<div class="container" style="padding-top: 80px; padding-bottom: 100px">
+  <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,31 @@
+<div class="panel-footer">
+  <div *ngIf="post.comments.length" style="color: #ff9800">
+    <i class="glyphicon glyphicon-comment"></i> {{post.comments.length}}
+  </div>
+  <div *ngIf="!post.comments.length">
+    <i class="glyphicon glyphicon-comment"></i> 0
+  </div>
+</div>
+<div *ngIf="full">
+  <div class="media single-comment new-comment" *ngIf="currentUser">
+    <div class="media-left">
+      <img [src]="currentUser.gravatarUrl" alt="" class="media-object">
+    </div>
+    <div class="media-body">
+      <h5 class="media-heading">{{currentUser.fullName}}</h5>
+      <textarea [(ngModel)]="commentBody" placeholder="Your comment goes here" rows="1" class="form-control" (keydown)="handleKeyup($event)"></textarea>
+    </div>
+  </div>
+  <div class="media single-comment" *ngFor="let comment of post.comments">
+    <div class="media-left">
+      <img [src]="comment._user.gravatarUrl" alt="" class="media-object">
+    </div>
+    <div class="media-body">
+      <h5 class="media-heading">{{comment._user.fullName}}</h5>
+      <small class="text-muted">{{comment.createdAt | amTimeAgo}}</small>
+      <p class="comment-body">{{comment.body}}</p>
+      <i class="glyphicon glyphicon-trash text-danger" *ngIf="isTheAuthor(comment)" (click)="destroyComment(comment)"></i>
+    </div>
+  </div>
+</div>
+

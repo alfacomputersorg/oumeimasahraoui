@@ -1,0 +1,32 @@
+<div class="chat-box" *ngIf="conversation && currentUser">
+  <div class="chat-box-header">
+    <h5 class="chat-box-title">{{remoteConverser().fullName}}</h5>
+    <a href="#" class="close" (click)="close($event)"> <i class="glyphicon glyphicon-remove"></i> </a>
+  </div>
+  <div class="chat-box-body" #chatBoxBody>
+    <div class="single-message" *ngFor="let message of messages"
+         [ngClass]="{
+           'from-me': message.sender._id === currentUser._id,
+           'from-them': message.sender._id !== currentUser._id
+         }">
+      <div class="avatar-wrapper"> <img [src]="message.sender.gravatarUrl"> </div>
+      <div class="message-body-wrapper">
+        <div class="message-body">{{message.messageBody}}</div>
+        <div class="message-time">{{message.createdAt | amTimeAgo}}</div>
+      </div>
+    </div>
+    <div class="single-message from-them is-typing" *ngIf="isTyping">
+      <div class="avatar-wrapper"> <img [src]="remoteConverser().gravatarUrl"> </div>
+      <div class="message-body-wrapper">
+        <div class="message-body"> <i class="glyphicon glyphicon-pencil"></i> ...</div>
+      </div>
+    </div>
+  </div>
+  <div class="chat-box-footer">
+    <input [(ngModel)]="typedMessage"
+           (keyup)="handleKeyup($event)"
+           (focus)="markMessagesAsViewed($event)"
+           #textInput
+           type="text" placeholder="Type something ..." class="form-control">
+  </div>
+</div>

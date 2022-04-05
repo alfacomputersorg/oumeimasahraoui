@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Admin Login Page</h3>
+      </div>
+      <form [formGroup]="loginForm" (ngSubmit)="handleSubmit()">
+        <div class="panel-body">
+          <alert type="info" *ngIf="next" dismissible="true">
+            Please login before
+          </alert>
+          <alert type="warning" *ngIf="serverFormErrors.length" dismissible="true">
+            Please correct these errors
+            <ul class="list-unstyled">
+              <li *ngFor="let error of serverFormErrors">
+                <strong> {{error.param}}: </strong> {{error.msg}}
+              </li>
+            </ul>
+          </alert>
+          <div class="form-group">
+            <label for="email" class="control-label">Email</label>
+            <input formControlName="email" id ="email" type="email" class="form-control" placeholder="ex: test@email.com">
+          </div>
+          <div class="form-group">
+            <label for="password" class="control-label">Password</label>
+            <input id ="password" formControlName="password" type="password" class="form-control" placeholder="******">
+          </div>
+        </div>
+        <div class="panel-footer">
+          <div class="row">
+            <div class="col-xs-6">
+              <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">
+                Login
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

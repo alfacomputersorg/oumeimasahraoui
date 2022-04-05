@@ -1,0 +1,16 @@
+<div class="row" *ngIf="post">
+  <div class="col-md-4">
+    <app-user-card [user]="post.user"></app-user-card>
+
+    <h4 class="section-header">
+      <i class="glyphicon glyphicon-fire mr-5 text-danger"></i>
+      Popular posts by {{post.user.fullName}}
+    </h4>
+    <app-top-rated-posts [user]="post.user"></app-top-rated-posts>
+    <app-should-login-panel></app-should-login-panel>
+  </div>
+  <div class="col-md-8">
+    <app-should-login-panel></app-should-login-panel>
+    <app-post [post]="post" [full]=true></app-post>
+  </div>
+</div>

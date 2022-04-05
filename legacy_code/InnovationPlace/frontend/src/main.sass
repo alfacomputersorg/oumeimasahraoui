@@ -1,0 +1,749 @@
+/*
+   Variables override
+ */
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/"
+
+// colors
+$gray-base: #2c3e50
+$gray-darker: lighten($gray-base, 12%)
+$gray-dark: lighten($gray-base, 20%)
+$gray: lighten($gray-base, 33%)
+$gray-light: lighten($gray-base, 44%)
+$gray-lighter: lighten($gray-base, 73%)
+
+$brand-primary: #2196F3 // material
+$brand-info: #8e44ad
+$brand-success: #2ecc71 // the most logic
+$brand-warning: #FF9800 // material
+$brand-danger: #f44336 // material
+$brand-concrete: #ecf0f1
+$brand-concrete-light: lighten(#ecf0f1, 5%)
+
+$body-bg: lighten($gray-lighter, 1%)
+$font-size-base: 15px
+$font-family-sans-serif: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif
+
+$border-radius-small: 1px
+$border-radius-base: 2px
+$border-radius-large: 3px
+
+//buttons
+$btn-font-weight: 600
+$btn-default-color: $gray-dark
+$btn-default-bg: $gray-lighter
+$btn-default-border: darken($gray-lighter, 3%)
+
+
+$btn-primary-border: darken($brand-primary, 3%)
+$btn-info-border: darken($brand-info, 3%)
+$btn-warning-border: darken($brand-warning, 3%)
+$btn-danger-border: darken($brand-danger, 3%)
+$btn-success-border: darken($brand-success, 3%)
+
+//forms
+$input-bg: #fdfdfd
+
+$state-warning-text: darken($brand-warning, 6%)
+$state-warning-bg: transparentize($brand-warning, .88)
+
+$state-danger-text: darken($brand-danger, 5%)
+$state-danger-bg: transparentize($brand-danger, .9)
+
+$state-info-text: darken($brand-info, 7%)
+$state-info-bg: transparentize($brand-info, .88)
+
+$state-success-text: darken($brand-success, 7%)
+$state-success-bg: transparentize($brand-success, .88)
+
+$state-primary-text: darken($brand-primary, 7%)
+$state-primary-bg: transparentize($brand-primary, .88)
+
+// navbars
+$navbar-height: 42px
+$navbar-inverse-bg: $brand-primary
+$navbar-inverse-border: darken($brand-primary, 12%)
+$navbar-inverse-link-color: #FFF
+$navbar-inverse-link-active-bg: lighten($brand-primary, 5%)
+$navbar-inverse-brand-color: #FFF
+
+// import bootstrap sass
+@import "../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss"
+
+// shared mixins
+@mixin label-theme($base-color)
+  @if $base-color == $gray-dark
+    color: $gray-dark
+    background-color: #FFF
+    &:hover, &:focus
+      color: darken($gray-dark, 5%)
+      background-color: darken(#FFF, 5%)
+  @else
+    color: $base-color
+    background-color: transparentize($base-color, .88)
+    border-bottom: 1px solid transparentize($base-color, .87)
+    &:hover, &:focus
+      color: darken($base-color, 3%)
+      background-color: transparentize($base-color, .8)
+      border-bottom: 1px solid transparentize($base-color, .78)
+
+@mixin alert-theme($base-color)
+  color: darken($base-color, 10%)
+  background-color: lighten($base-color, 40%)
+  border-bottom: 1px solid lighten($base-color, 35%)
+
+@mixin button-gradient($base-color)
+  @if $base-color == lighten($brand-concrete, 10%)
+    background-image: linear-gradient(darken($base-color, 1%), darken($base-color, 4%))
+    border: 1px solid darken($base-color, 9%)
+    &:hover, &:focus
+      background-image: linear-gradient(darken($base-color, 3%), darken($base-color, 5%))
+      border: 1px solid darken($base-color, 11%)
+  @else
+    background-image: linear-gradient(darken($base-color, 1%), darken($base-color, 7%))
+    border: 1px solid darken($base-color, 9%)
+    &:hover, &:focus
+      background-image: linear-gradient(darken($base-color, 3%), darken($base-color, 8%))
+      border: 1px solid darken($base-color, 11%)
+  &.btn-outline
+    $sub-base: lighten($brand-concrete, 10%)
+    background-image: linear-gradient(darken($sub-base, 1%), darken($sub-base, 4%))
+    border: 1px solid darken($sub-base, 9%)
+    text-shadow: 0 1px 0 #FFF
+    color: $base-color
+    &:hover, &:focus
+      background-image: linear-gradient(darken($sub-base, 3%), darken($sub-base, 5%))
+      border: 1px solid $base-color
+      color: darken($base-color, 5%)
+
+/*********************/
+// Design begins here
+/*********************/
+
+body
+  position: relative
+  min-height: 100vh
+
+//badges
+.badge-danger
+  background: $brand-danger
+// Buttons
+.btn-primary
+  @include button-gradient($brand-primary)
+.btn-warning
+  @include button-gradient($brand-warning)
+.btn-danger
+  @include button-gradient($brand-danger)
+.btn-info
+  @include button-gradient($brand-info)
+.btn-success
+  @include button-gradient($brand-success)
+.btn-default
+  @include button-gradient(lighten($brand-concrete, 10%))
+
+.btn
+  &.btn-active
+    background-image: none
+    overflow: hidden
+    background-size: 40px 40px
+    @include transition(width .6s ease)
+    @include gradient-striped
+    @include animation(progress-bar-stripes 2s linear infinite)
+    background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent)
+
+//forms
+label
+  font-weight: 600
+  &.text-faded
+    transition: all .4s
+    color: $gray-light
+
+.form-control
+  box-shadow: none
+  transition: none
+  transition: background .3s
+  background: #fff
+  border: 1px solid darken($gray-lighter, 2%)
+  color: $gray-darker
+  border-top-left-radius: 0px
+  border-bottom-left-radius: 0px
+  &:focus
+    box-shadow: none
+    border: 1px solid darken($gray-lighter, 3%)
+    border-left: 2px solid $brand-primary
+    padding-left: 10px
+    background: lighten($gray-lighter, 3%)
+.ql-toolbar
+  background: #fbfbfb
+  border: 1px solid darken($gray-lighter, 3%) !important
+
+.ql-container
+  background: #FFF
+  border: 1px solid darken($gray-lighter, 3%) !important
+
+.form-group
+  &.has-error
+    .form-control, .Select-control
+      border: none
+      box-shadow: none
+      border-left: 2px solid $brand-danger
+      padding-left: 10px
+      &:focus
+        border: 1px solid darken($gray-lighter, 2%)
+        border-left: 2px solid $brand-danger
+  &.required
+    label
+      position: relative
+      &:after
+        content: "*"
+        margin-left: 5px
+        color: $brand-warning
+      &.text-faded
+        &:after
+          content: ""
+
+
+.input-group-btn:last-child > .btn, .input-group-btn:last-child > .btn-group
+  border: 1px solid darken($gray-lighter, 2%)
+  color: $brand-primary
+  background: darken($gray-lighter, 3%)
+
+.form-group.focused
+  .input-group-btn:last-child > .btn, .input-group-btn:last-child > .btn-group
+    background: lighten($gray-lighter, 0%)
+
+// navbar
+.navbar-brand
+  padding: 11px 15px
+  font-weight: 900
+.navbar-nav > li > a
+  padding-top: 11px
+  padding-bottom: 11px
+.navbar-inverse
+  background: linear-gradient($brand-primary, darken($brand-primary, 3%))
+.navbar-default
+  //background-color: #FFF
+  background-color: transparentize(#FFF, .1)
+  transition: background-color .2s
+  &:hover
+    background-color: #FFF
+
+  .navbar-brand
+    i
+      color: $brand-success
+      animation: glow 2s infinite alternate
+    color: $brand-primary
+    opacity: .9
+    &:hover
+      opacity: 1
+      color: $brand-primary
+  .navbar-nav > li > a
+    color: $gray-dark
+    &:hover
+      background: transparentize($brand-primary, .9)
+      color: $gray-darker
+  .navbar-nav > .active > a, .navbar-nav > .active > a:hover, .navbar-nav > .active > a:focus
+    background: transparentize($brand-primary, .9)
+    color: $brand-primary
+  .navbar-nav > .open > a, .navbar-nav > .open > a:hover, .navbar-nav > .open > a:focus
+    background: transparentize($brand-primary, .9)
+    color: $brand-primary
+
+
+.nav
+  .user-avatar
+    width: auto
+    height: 25px
+    margin-right: 8px
+  .user-dropdown
+    padding-top: 7px
+    padding-bottom: 7px
+    line-height: 14px
+  .user-dropdown:after
+    content: ""
+    display: table
+    clear: both
+  .avatar-wrapper
+    float: left
+  .user-info
+    float: left
+  .caret-wrapper
+    float: left
+    padding: 7px 0 7px 10px
+  .user-dropdown .full-name
+    font-weight: 600
+  .user-dropdown .email
+    font-size: .7em
+    opacity: .8
+
+// user card
+.user-card
+  color: #FFF
+  position: relative
+  background-image: linear-gradient(45deg, lighten($brand-primary, 1%), lighten($brand-primary, 10%))
+  border: 1px solid lighten($brand-primary, 5%)
+  margin-top: 40px
+  ul
+    margin-top: 10px
+    li
+      font-size: .8em
+      i
+        margin-right: 5px
+  img
+    position: absolute
+    top: -45px
+    border-radius: 50%
+    border: 4px solid #FFF
+    background: $brand-primary
+    width: 88px
+    height: 88px
+  .card-title
+    margin-top: 40px
+    margin-bottom: 5px
+    a
+      color: #FFF
+      font-weight: 600
+  .card-subtitle
+    margin-bottom: 5px
+    small
+      color: #FFF
+      opacity: .8
+      font-size: .8em
+    &:last-child
+      margin-bottom: 0
+// post-card
+.post-card
+  animation: fadeIn .3s
+  .post-card-header
+    padding-right: 15px
+    padding-left: 15px
+    padding-top: 15px
+    padding-bottom: 15px
+    .media-body
+      .media-heading
+        margin-bottom: 0px
+        .label
+          font-size: .5em
+          margin-left: 5px
+      p
+        margin-bottom: 0
+        small
+          font-size: .8em
+          opacity: .8
+    .media-object
+      width: 40px
+      height: 40px
+      background: $brand-primary
+      border-radius: 50%
+    .share-buttons-wrapper
+      margin-top: 14px
+
+// Comments
+.single-comment
+  padding: 10px 15px
+  margin: 0
+  position: relative
+  margin-bottom: 6px
+  &:nth-child(odd)
+    background: #FFF
+    animation: fadeIn .2s
+  &:nth-child(odd)
+    background: #FDFDFD
+    border-bottom: 1px solid #FAFAFA
+    animation: fadeIn .2s
+  img
+    width: 40px
+    border-radius: 50%
+  p
+    margin: 0
+  .media-heading
+    font-weight: 600
+    margin-bottom: 0
+  .media-body i
+    position: absolute
+    top: 10px
+    right: 10px
+    cursor: pointer
+  .comment-body
+    margin-top: 2px
+.new-comment
+  padding-bottom: 20px
+  .media-heading
+    margin-bottom: 5px
+
+// filter list group
+.filter-list-group
+  .list-group-item
+    &:hover, &.selected
+      background: #f5f5f5
+      .list-group-item-heading
+        &.primary-on-select
+          color: $brand-primary
+        &.info-on-select
+          color: $brand-info
+        &.warning-on-select
+          color: $brand-warning
+        &.danger-on-select
+          color: $brand-danger
+        &.success-on-select
+          color: $brand-success
+      p
+        opacity: 1
+    .list-group-item-heading
+      i
+        margin-right: 5px
+    p
+      font-size: .8em
+      opacity: .8
+
+// popular authors
+.popular-authors-wrapper
+  .popular-author
+    display: inline-block
+    position: relative
+    margin-right: 10px
+    margin-bottom: 5px
+    cursor: pointer
+    img
+      width: 40px
+      border-radius: 50%
+    .label
+      position: absolute
+      top: 0
+      right: -7px
+      border-radius: 50%
+
+// headers
+.section-header
+  border-bottom: 1px solid
+  position: relative
+  padding-bottom: 8px
+  margin-bottom: 20px
+  font-weight: 600
+  &:after
+    content: " "
+    position: absolute
+    right: 12px
+    bottom: -3px
+    display: block
+    height: 6px
+    width: 30px
+    border-radius: 6px
+    background: $brand-primary
+.title
+  text-align: center
+.title-icon
+  text-align: center
+  font-size: 2em
+  color: $brand-info
+.subtitle
+  text-align: center
+  margin-top: 0
+  opacity: .7
+  font-size: .9em
+
+//panels
+.panel
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.09)
+  &.panel-default
+    border: 1px solid rgba(0, 0, 0, 0.03)
+  .panel-footer
+    background-color: transparentize($brand-primary, .925)
+.list-group
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.09)
+.list-group-item
+  border: 1px solid rgba(0, 0, 0, 0.05)
+
+// signup sections
+.signup-sections-wrapper
+  padding: 50px 15px
+  section
+    margin-bottom: 26px
+    .section-header
+      margin-bottom: 16px
+    .section-content
+      opacity: .7
+      font-size: .9em
+
+// should login panel
+.should-login-panel
+  margin-top: 50px
+  margin-bottom: 50px
+  text-align: center
+  animation: pulse .8s
+
+.bubble
+  width: 10px
+  height: 10px
+  border-radius: 50%
+  display: inline-block
+  background: $gray
+  border: 1px solid #FFF
+  &.bubble-default
+    background: $gray
+  &.bubble-success
+    background: $brand-success
+// styling the chat section
+.chat-sidebar
+  z-index: 10
+  position: fixed
+  top: 0
+  left: -200px
+  width: 200px
+  padding-top: 60px
+  height: 100vh
+  border-right: 1px solid #DDD
+  background: #FFF
+  transition: left .4s
+  &.open
+    left: 0
+    box-shadow: 1px 0px 18px $gray-darker
+  .sidebar-trigger
+    position: absolute
+    top: 100px
+    left: 200px
+    z-index: 11
+    padding: 10px 20px
+    font-size: 1.3em
+    border-top-right-radius: 6px
+    border-bottom-right-radius: 6px
+    background: $gray-darker
+    color: #FFF
+    transition: padding .2s
+    cursor: pointer
+    &:hover
+      padding-left: 30px
+      padding-right: 30px
+  .top-section
+    margin-bottom: 20px
+  .section-header
+    padding-left: 10px
+    margin-bottom: 3px
+  .search-form-wrapper
+    padding: 7px 10px
+    background: #f9f9f9
+    margin-bottom: 18px
+  .chat-list
+    overflow-x: auto
+    height: 100%
+    background: #FFF
+    height: calc(100vh - 243px)
+  .chat-item
+    padding: 7px 3px 7px 10px
+    border-bottom: 1px solid #f1f1f1
+    animation: fadeIn .3s
+    .media-heading, .media-left
+      cursor: pointer
+    .bubble-default
+      display: inline-block
+    .bubble-success
+      display: none
+    &.is-connected
+      background: transparentize($brand-success, .95)
+      .bubble-default
+        display: none
+      .bubble-success
+        display: inline-block
+      .media-heading
+        font-weight: 600
+        color: $gray-darker
+
+    .media-left
+      position: relative
+      .bubble
+        position: absolute
+        top: 1px
+        right: 7px
+    .media-heading
+      font-size: .8em
+      color: $gray-light
+      .badge
+        margin-right: 5px
+        font-size: .9em
+        font-weight: 400
+    p
+      margin: 0
+      font-size: .8em
+      .open-user-chat
+        color: $brand-primary
+        &:hover, &:focus
+          color: darken($brand-primary, 10%)
+          text-decoration: none
+      .visit-user
+        color: $gray
+        &:hover, &:focus
+          color: darken($gray, 10%)
+          text-decoration: none
+    .media-object
+      border-radius: 50%
+      width: 28px
+// chat styling
+.chat-box
+  position: fixed
+  right: 30px
+  bottom: 0
+  //height: 350px
+  background: #FFF
+  width: 270px
+  z-index: 2
+  .chat-box-header
+    height: 30px
+    background: linear-gradient($brand-primary, darken($brand-primary, 5%))
+    position: relative
+    border-bottom: 1px solid darken($brand-primary, 10%)
+    border-top-left-radius: 2px
+    border-top-right-radius: 2px
+    .chat-box-title
+      color: #FFF
+      display: inline-block
+      margin: 0
+      padding: 7px 10px
+      font-weight: 600
+    .close
+      position: absolute
+      right: 10px
+      top: 7px
+      color: #FFF
+      opacity: .8
+      font-size: .8em
+      &:hover, &:focus
+        text-decoration: none
+        opacity: 1
+  .chat-box-body
+    height: 300px
+    overflow-y: auto
+    border-left: 1px solid #DDD
+    border-right: 1px solid #DDD
+    padding-top: 8px
+    padding-bottom: 8px
+    .single-message
+      overflow: hidden
+      clear: both
+      margin-bottom: 5px
+      animation: fadeIn .15s
+      &.is-typing
+        animation: fadeInUp .1s
+        .message-body
+          color: $gray-darker !important
+          background: transparentize($brand-primary, .9) !important
+          animation: typing 1s infinite alternate
+      .message-body-wrapper
+        .message-body
+          padding: 6px 12px
+          border-radius: 8px
+          font-size: 13px
+        .message-time
+          font-size: 11px
+          opacity: .8
+      &.from-them
+        padding-left: 10px
+        float: left
+        max-width: 60%
+        .avatar-wrapper
+          float: left
+          width: 28px
+          margin-right: 5px
+          img
+            width: 28px
+            height: 28px
+            border-radius: 50%
+            border: 1px solid $brand-primary
+            background: $brand-primary
+        .message-body-wrapper
+          float: left
+          width: calc(100% - 33px)
+        .message-body
+          background: transparentize($brand-primary, .1)
+          color: #FFF
+      &.from-me
+        padding-right: 10px
+        float: right
+        max-width: 50%
+        .avatar-wrapper
+          display: none
+        .message-body-wrapper
+        .message-body
+          background: transparentize($brand-primary, .9)
+          color: $gray-darker
+        .message-time
+          text-align: right
+
+  .chat-box-footer
+    height: 37px
+    border-left: 1px solid #DDD
+    border-right: 1px solid #DDD
+    border-top: 1px solid #eee
+    input
+      font-size: .9em
+.user-informations
+  .list-group-item-heading
+    font-weight: 600
+
+//Hero content
+.hero-unit
+  position: relative
+  width: 100%
+  height: 300px
+  overflow: hidden
+  margin-bottom: 80px
+  border: 1px solid transparentize($brand-primary, .7)
+  border-bottom: 2px solid $brand-primary
+  padding: 20px 30px
+  h1, h4, p
+    color: $gray-darker
+    text-shadow: 0 1px 1px transparentize(#FFF, .1)
+  h1
+    i
+      margin-right: 10px
+      color: $brand-success
+    color: $brand-primary
+    font-weight: 600
+  h4
+    font-size: 1.4em
+    color: $brand-info
+    margin-bottom: 20px
+  p
+    font-size: 1.2em
+    color: #FFF
+    text-shadow: 0 1px 9px transparentize(#000, .1)
+  .buttons-wrapper
+    margin-top: 30px
+    text-align: right
+  .bg-image
+    z-index: -1
+    position: absolute
+    left: 0
+    right: 0
+    top: 0
+    bottom: 0
+    width: 100%
+    filter: blur(5px) grayscale(30%)
+
+.logo
+  font-weight: 600
+  color: $brand-primary
+  i
+    color: $brand-success
+    margin-right: 5px
+// Footer
+footer
+  border-top: 1px solid #EEE
+  text-align: center
+  background: #FFF
+  position: absolute
+  width: 100%
+  bottom: 0
+  padding: 18px 0
+
+
+// animations
+@keyframes typing
+  from
+    padding-left: 18px
+  to
+    padding-left: 6px
+
+@keyframes glow
+  from
+    text-shadow: 0 1px 0px transparentize($brand-success, .8)
+  to
+    text-shadow: 0 1px 1px transparentize($brand-success, .5)

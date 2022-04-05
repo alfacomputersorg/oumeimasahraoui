@@ -1,0 +1,99 @@
+<div class="panel panel-default post-card">
+  <div class="post-card-header">
+    <div class="media">
+      <div class="media-left">
+        <a [routerLink]="['/users', post.user._id]">
+          <img [src]="post.user.gravatarUrl" alt="" class="media-object">
+        </a>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">
+          <a [routerLink]="['/posts', post._id]">
+            {{post.title}}
+          </a>
+          <span class="label label-success mr-5" *ngIf="post.verified">
+            <i class="glyphicon glyphicon-ok mr-5"></i>
+            Verified
+          </span>
+            <span class="label label-warning mr-5" *ngIf="!post.verified">
+            <i class="glyphicon glyphicon-time mr-5"></i>
+            Pending
+          </span>
+        </h4>
+        <p>
+          <small>{{post.createdAt | amTimeAgo}}</small> -
+          <small>Viewed {{post.viewsCount}} times</small> -
+          <small *ngIf="post.comments.length" style="color: #ff9800">
+            <i class="glyphicon glyphicon-comment"></i> {{post.comments.length}}
+          </small>
+          <small *ngIf="!post.comments.length">
+            <i class="glyphicon glyphicon-comment"></i> 0
+          </small>
+        </p>
+        <div>
+          <div *ngIf="post.currentUserRating">
+            <rating [(ngModel)]="rating" [max]=5 style="color: #ff9800" (click)="handleRateSelection()"></rating>
+            <span class="ml-5">
+              <strong>{{post.averageRating | number: '1.1-1'}}</strong> / 5 <small>({{post.ratingsCount}} rating)</small>
+            </span>
+          </div>
+          <div *ngIf="!post.currentUserRating">
+            <rating [(ngModel)]="rating" [max]=5 (click)="handleRateSelection()"></rating>
+            <span class="ml-5" *ngIf="rating">
+              <strong>{{post.averageRating || rating | number: '1.1-1'}}</strong> / 5 <small *ngIf="post.ratingsCount">({{post.ratingsCount}} rating)</small>
+            </span>
+          </div>
+        </div>
+        <p *ngIf="isTheAuthor">
+          <a [routerLink]="['/posts', post._id, 'edit']" class="btn btn-info btn-xs">
+            <i class="glyphicon glyphicon-pencil mr-5"></i>
+            Edit
+          </a>
+        </p>
+        <div *ngIf="!post.verified && currentUser && ( currentUser.role === 'admin' || currentUser.role === 'author')">
+          <button class="btn btn-xs btn-success" (click)="markAsVerified()">
+            <i class="glyphicon glyphicon-ok mr-5"></i>
+            Mark as verified
+          </button>
+        </div>
+        <div class="share-buttons-wrapper">
+          <div class="btn-group">
+            <button class="btn btn-primary btn-xs" ceiboShare  [facebook]="{u: postUrl}">
+              <i class="fa fa-facebook"></i>
+            </button>
+            <button class="btn btn-info btn-xs" ceiboShare  [linkedIn]="{u: postUrl}">
+              <i class="fa fa-linkedin"></i>
+            </button>
+            <button class="btn btn-primary btn-xs" ceiboShare  [twitter]="{u: postUrl}">
+              <i class="fa fa-twitter"></i>
+            </button>
+            <button class="btn btn-danger btn-xs" ceiboShare  [googlePlus]="{u: postUrl}">
+              <i class="fa fa-google-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!onlyHeader">
+    <div class="panel-body" *ngIf="post.body">
+      <div [innerHtml]="post.body">
+      </div>
+    </div>
+    <div class="panel-image" *ngIf="post.image">
+      <img [src]="post.imageUrl" style="width: 100%;">
+    </div>
+    <div class="panel-video" *ngIf="post.video">
+      <hr>
+      <video controls style="width: 100%">
+        <source [src]="post.videoUrl" type="video/mp4">
+      </video>
+    </div>
+    <div class="panel-pdf" *ngIf="post.pdf && full">
+      <iframe [src]="post.pdfUrl" frameborder="0" style="width: 100%; min-height: 900px"></iframe>
+    </div>
+
+    <app-post-comments [post]="post" [full]="full"></app-post-comments>
+  </div>
+</div>
+

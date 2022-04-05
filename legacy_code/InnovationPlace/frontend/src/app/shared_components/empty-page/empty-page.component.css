@@ -1,0 +1,11 @@
+.panel-body{
+    text-align: center;
+    padding: 60px 15px;
+}
+
+i{
+    display: block;
+    font-size: 38px;
+    color: #aaa;
+    opacity: .2;
+}

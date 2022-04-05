@@ -1,0 +1,142 @@
+<div class="hero-unit">
+  <h1> <i class="glyphicon-leaf glyphicon"></i> Innovation place</h1>
+  <h4>The only place you can share your ideas</h4>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+    Consequatur earum eius eligendi esse inventore iusto nam
+    quo reiciendis ullam velit, vitae?<br>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+    Consequatur natus nemo quo reiciendis ullam velit, vitae?
+  </p>
+  <div class="buttons-wrapper" *ngIf="currentUser">
+    <a routerLink="/posts/new" class="btn btn-primary">
+      <i class="glyphicon glyphicon-plus mr-5"></i>
+      Create a new post
+    </a>
+  </div>
+  <div class="buttons-wrapper" *ngIf="!currentUser">
+    <a routerLink="/signup" class="btn btn-sm btn-primary mr-5">
+      <i class="glyphicon glyphicon-plus mr-5"></i>
+      Signup
+    </a>
+    <a routerLink="/login" class="btn btn-sm btn-info">
+      <i class="glyphicon glyphicon-lock mr-5"></i>
+      Login
+    </a>
+  </div>
+  <img src="assets/images/main-image.jpg" alt="" class="bg-image">
+</div>
+<div class="row">
+  <div class="col-md-3">
+    <app-user-card [user]="currentUser"></app-user-card>
+
+    <h4 class="section-header">Filters</h4>
+    <div class="list-group filter-list-group">
+      <a href="#" class="list-group-item"
+         [ngClass]="{selected: (searchAuthorId === currentUser._id)}"
+         (click)="filterBy($event, 'searchAuthorId', currentUser._id)"
+         *ngIf="currentUser"
+      >
+
+        <h5 class="list-group-item-heading primary-on-select">
+          <i class="glyphicon glyphicon-list-alt"></i>
+          My posts
+        </h5>
+        <p class="list-group-item-text">The tests that I've written</p>
+      </a>
+      <a href="#" class="list-group-item"
+         [ngClass]="{selected: (searchOrderBy === 'viewsCount')}"
+         (click)="orderBy($event, 'viewsCount')">
+
+        <h5 class="list-group-item-heading danger-on-select">
+          <i class="glyphicon glyphicon-fire"></i>
+          Most viewed posts
+        </h5>
+        <p class="list-group-item-text">Post that are the most viewed</p>
+      </a>
+      <a href="#" class="list-group-item"
+         [ngClass]="{selected: (searchOrderBy === 'staticAverageRating')}"
+         (click)="orderBy($event, 'staticAverageRating')">
+
+        <h5 class="list-group-item-heading success-on-select">
+          <i class="glyphicon glyphicon-signal"></i>
+          Top rated posts
+        </h5>
+        <p class="list-group-item-text">Posts that have the highest rating</p>
+      </a>
+      <a href="#" class="list-group-item"
+         [ngClass]="{selected: (searchVerified === false)}"
+         (click)="filterBy($event, 'searchVerified', false)"
+         *ngIf="currentUser"
+          >
+
+        <h5 class="list-group-item-heading warning-on-select">
+          <i class="glyphicon glyphicon-time"></i>
+          Pending posts
+        </h5>
+        <p class="list-group-item-text">Posts that are not yet verified.</p>
+      </a>
+    </div>
+
+    <h4 class="section-header" *ngIf="users.length">Authors</h4>
+    <div class="popular-authors-wrapper">
+      <span class="popular-author"
+            *ngFor="let user of users"
+            [tooltip]="user.fullName"
+            (click)="filterBy($event, 'searchAuthorId', user._id)"
+            >
+
+        <img [src]="user.gravatarUrl"/>
+        <span class="label label-danger" *ngIf="user.postsCount >= 10">{{user.postsCount}}</span>
+        <span class="label label-info" *ngIf="user.postsCount >= 5 && user.postsCount < 10 ">{{user.postsCount}}</span>
+        <span class="label label-success" *ngIf="user.postsCount > 0 && user.postsCount < 5">{{user.postsCount}}</span>
+        <span class="label label-default" *ngIf="!user.postsCount">0</span>
+      </span>
+    </div>
+    <app-should-login-panel></app-should-login-panel>
+  </div>
+  <div class="col-md-6">
+    <app-should-login-panel></app-should-login-panel>
+    <div *ngIf="posts.length">
+      <h6 class="text-muted mt-0" *ngIf="posts.length">Displaying {{posts.length}} posts / {{paginationMeta.count}}</h6>
+      <app-post *ngFor="let post of posts" [post]="post" [full]=false></app-post>
+      <div class="text-center">
+        <pagination [boundaryLinks]="true"
+                    [itemsPerPage]="3"
+                    [totalItems]="paginationMeta.count"
+                    [(ngModel)]="currentPage"
+                    class="pagination-sm"
+                    previousText="&lsaquo;"
+                    nextText="&rsaquo;"
+                    firstText="&laquo;"
+                    lastText="&raquo;"
+                    (pageChanged)="pageChanged($event)"
+                    class="pagination-sm"
+        ></pagination>
+      </div>
+    </div>
+    <div *ngIf="!posts.length">
+      <app-empty-page></app-empty-page>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <h4 class="section-header">More filters</h4>
+    <div class="form-group">
+      <label for="keyword" class="control-label">Keywords</label>
+      <input type="text" id="keyword" [(ngModel)]="searchKeyword" class="form-control" (keyup)="handleSearchFormChange()">
+      <span class="help-block">Some word from a title or the body of an article</span>
+    </div>
+    <div class="form-group">
+      <label for="authorId" class="control-label">Author</label>
+      <select class="form-control" id="authorId" [(ngModel)]="searchAuthorId" (change)="handleSearchFormChange()">
+        <option value=""></option>
+        <option [value]="user._id" *ngFor="let user of users">{{user.fullName}}</option>
+      </select>
+      <span class="help-block">You can also filter articles by their author</span>
+    </div>
+    <h4 class="section-header">
+      <i class="glyphicon glyphicon-fire mr-5 text-danger"></i>
+      Popular posts
+    </h4>
+    <app-top-rated-posts></app-top-rated-posts>
+  </div>
+</div>
